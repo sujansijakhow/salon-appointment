@@ -118,7 +118,7 @@ const AppointmentsPage = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm("Delete this appointment? This cannot be undone.")) {
+    if (window.confirm("Delete this appointment?")) {
       deleteMutation.mutate(id, {
         onSuccess: () => setSuccessMessage("Appointment deleted."),
       });

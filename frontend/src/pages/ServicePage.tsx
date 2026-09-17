@@ -65,7 +65,7 @@ const ServicesPage = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm("Delete this service? This cannot be undone.")) {
+    if (window.confirm("Delete this service?")) {
       const service = services?.find((s) => s.id === id);
       deleteMutation.mutate(id, {
         onSuccess: () => {
