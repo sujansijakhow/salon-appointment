@@ -126,13 +126,13 @@ const AppointmentsPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mx-auto max-w-4xl p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Appointments</h1>
         <button
           onClick={openForm}
           disabled={servicesLoading}
-          className="flex items-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="flex items-center justify-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
         >
           <Plus size={16} />
           Book Appointment
@@ -164,13 +164,13 @@ const AppointmentsPage = () => {
           placeholder="Search by name or phone"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-auto"
         />
         <input
           type="date"
           value={dateFilter}
           onChange={(e) => setDateFilter(e.target.value)}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-auto"
         />
         {(dateFilter || searchInput) && (
           <button
@@ -185,12 +185,12 @@ const AppointmentsPage = () => {
         )}
       </div>
 
-      <div className="mb-4 flex gap-2">
+      <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
         {FILTER_OPTIONS.map((option) => (
           <button
             key={option.value}
             onClick={() => setStatusFilter(option.value)}
-            className={`rounded-md px-3 py-1 text-sm font-medium ${
+            className={`shrink-0 rounded-md px-3 py-1 text-sm font-medium ${
               statusFilter === option.value
                 ? "bg-indigo-600 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"

@@ -89,12 +89,12 @@ const ServicesPage = () => {
   const activeMutation = editingService ? updateMutation : createMutation;
 
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mx-auto max-w-3xl p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Services</h1>
         <button
           onClick={openCreateForm}
-          className="flex items-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 cursor-pointer"
+          className="flex items-center justify-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 cursor-pointer"
         >
           <Plus size={16} />
           Add Service
