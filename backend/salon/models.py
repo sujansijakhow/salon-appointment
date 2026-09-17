@@ -44,7 +44,7 @@ class Appointment(models.Model):
     
     date = models.DateField()
     time = models.TimeField()
-    note = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
     status = models.CharField(
         max_length=10,
         choices=Status.choices,
