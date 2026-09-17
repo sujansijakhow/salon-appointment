@@ -2,15 +2,41 @@ import { useState, useEffect } from "react";
 import { isAxiosError } from "axios";
 import { Plus } from "lucide-react";
 import { useServices } from "../hooks/useServices";
-import { useCreateAppointment } from "../hooks/useAppointment";
+import {
+  useAppointments,
+  useCreateAppointment,
+  useUpdateAppointmentStatus,
+  useDeleteAppointment,
+} from "../hooks/useAppointment";
+
 import AppointmentForm from "../components/appointments/AppointmentForm";
+import AppointmentTable from "../components/appointments/AppointmentTable";
 import Modal from "../components/ui/Modal";
 import type { AppointmentFormValues } from "../schemas/appointmentSchema";
-import type { ApiErrorResponse } from "../types";
+import type { ApiErrorResponse, AppointmentStatus } from "../types";
+
+const FILTER_OPTIONS: { label: string; value: AppointmentStatus | "" }[] = [
+  { label: "All", value: "" },
+  { label: "Pending", value: "PENDING" },
+  { label: "Confirmed", value: "CONFIRMED" },
+  { label: "Completed", value: "COMPLETED" },
+  { label: "Cancelled", value: "CANCELLED" },
+];
 
 const AppointmentsPage = () => {
+  const [statusFilter, setStatusFilter] = useState<AppointmentStatus | "">("");
+
   const { data: services, isLoading: servicesLoading } = useServices();
+  const {
+    data: appointments,
+    isLoading: appointmentsLoading,
+    isError: appointmentsError,
+    error: appointmentsErrorObj,
+  } = useAppointments(statusFilter || undefined);
+
   const createMutation = useCreateAppointment();
+  const statusMutation = useUpdateAppointmentStatus();
+  const deleteMutation = useDeleteAppointment();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [submitError, setSubmitError] = useState<string | undefined>();
@@ -71,14 +97,31 @@ const AppointmentsPage = () => {
     );
   };
 
+  const handleStatusChange = (id: number, status: AppointmentStatus) => {
+    statusMutation.mutate(
+      { id, status },
+      {
+        onSuccess: () => setSuccessMessage("Appointment status updated."),
+      }
+    );
+  };
+
+  const handleDelete = (id: number) => {
+    if (window.confirm("Delete this appointment? This cannot be undone.")) {
+      deleteMutation.mutate(id, {
+        onSuccess: () => setSuccessMessage("Appointment deleted."),
+      });
+    }
+  };
+
   return (
-    <div className="mx-auto max-w-3xl p-6">
+    <div className="mx-auto max-w-4xl p-6">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Appointments</h1>
         <button
           onClick={openForm}
           disabled={servicesLoading}
-          className="flex items-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 cursor-pointer"
+          className="flex items-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
         >
           <Plus size={16} />
           Book Appointment
@@ -98,7 +141,45 @@ const AppointmentsPage = () => {
         </div>
       )}
 
-      {/* Appointment table + status filter come in Phase 8 */}
+      {deleteMutation.isError && (
+        <p role="alert" className="mb-4 text-sm text-red-600">
+          Failed to delete appointment.
+        </p>
+      )}
+
+      <div className="mb-4 flex gap-2">
+        {FILTER_OPTIONS.map((option) => (
+          <button
+            key={option.value}
+            onClick={() => setStatusFilter(option.value)}
+            className={`rounded-md px-3 py-1 text-sm font-medium ${
+              statusFilter === option.value
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+
+      {appointmentsLoading && (
+        <p className="p-6 text-sm text-gray-500">Loading appointments...</p>
+      )}
+      {appointmentsError && (
+        <p role="alert" className="p-6 text-sm text-red-600">
+          Error: {(appointmentsErrorObj as Error).message}
+        </p>
+      )}
+      {!appointmentsLoading && !appointmentsError && (
+        <AppointmentTable
+          appointments={appointments ?? []}
+          onStatusChange={handleStatusChange}
+          onDelete={handleDelete}
+          updatingId={statusMutation.isPending ? statusMutation.variables?.id : undefined}
+          deletingId={deleteMutation.isPending ? deleteMutation.variables : undefined}
+        />
+      )}
 
       <Modal isOpen={isFormOpen} onClose={closeForm} title="Book Appointment">
         <AppointmentForm
