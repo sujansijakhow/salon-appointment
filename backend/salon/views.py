@@ -1,4 +1,4 @@
-from django.db.models import ProtectedError
+from django.db.models import ProtectedError, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status as http_status
 from rest_framework.decorators import api_view
@@ -61,9 +61,22 @@ def service_detail(request, pk):
 def appointments_list(request):
     if request.method == "GET":
         appointments = Appointment.objects.select_related("service").all()
+
         status_param = request.query_params.get("status")
         if status_param:
             appointments = appointments.filter(status=status_param.upper())
+
+        date_param = request.query_params.get("date")
+        if date_param:
+            appointments = appointments.filter(date=date_param)
+
+        search_param = request.query_params.get("search")
+        if search_param:
+            appointments = appointments.filter(
+                Q(customer_name__icontains=search_param)
+                | Q(customer_phone__icontains=search_param)
+            )
+
         serializer = AppointmentSerializer(appointments, many=True)
         return Response(serializer.data)
 

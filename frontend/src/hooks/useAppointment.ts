@@ -8,17 +8,18 @@ import {
     getAppointments, 
     createAppointment, 
     updateAppointmentStatus, 
-    deleteAppointment } from "../api/appointment";
-    
+    deleteAppointment, 
+    type AppointmentFilters} from "../api/appointment";
+
 import type { AppointmentInput, AppointmentStatus } from "../types";
 
-const appointmentsKey = (status?: AppointmentStatus) =>
-  ["appointments", status ?? "all"] as const;
+const appointmentsKey = (filters: AppointmentFilters) =>
+  ["appointments", filters.status ?? "all", filters.date ?? "any", filters.search ?? ""] as const;
 
-export const useAppointments = (status?: AppointmentStatus) => {
+export const useAppointments = (filters: AppointmentFilters = {}) => {
   return useQuery({
-    queryKey: appointmentsKey(status),
-    queryFn: () => getAppointments(status),
+    queryKey: appointmentsKey(filters),
+    queryFn: () => getAppointments(filters),
   });
 };
 

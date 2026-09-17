@@ -8,7 +8,6 @@ import {
   useUpdateAppointmentStatus,
   useDeleteAppointment,
 } from "../hooks/useAppointment";
-
 import AppointmentForm from "../components/appointments/AppointmentForm";
 import AppointmentTable from "../components/appointments/AppointmentTable";
 import Modal from "../components/ui/Modal";
@@ -25,6 +24,14 @@ const FILTER_OPTIONS: { label: string; value: AppointmentStatus | "" }[] = [
 
 const AppointmentsPage = () => {
   const [statusFilter, setStatusFilter] = useState<AppointmentStatus | "">("");
+  const [dateFilter, setDateFilter] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchInput), 400);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const { data: services, isLoading: servicesLoading } = useServices();
   const {
@@ -32,7 +39,11 @@ const AppointmentsPage = () => {
     isLoading: appointmentsLoading,
     isError: appointmentsError,
     error: appointmentsErrorObj,
-  } = useAppointments(statusFilter || undefined);
+  } = useAppointments({
+    status: statusFilter || undefined,
+    date: dateFilter || undefined,
+    search: debouncedSearch || undefined,
+  });
 
   const createMutation = useCreateAppointment();
   const statusMutation = useUpdateAppointmentStatus();
@@ -146,6 +157,33 @@ const AppointmentsPage = () => {
           Failed to delete appointment.
         </p>
       )}
+
+      <div className="mb-4 flex flex-wrap gap-3">
+        <input
+          type="text"
+          placeholder="Search by name or phone"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+        />
+        <input
+          type="date"
+          value={dateFilter}
+          onChange={(e) => setDateFilter(e.target.value)}
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+        />
+        {(dateFilter || searchInput) && (
+          <button
+            onClick={() => {
+              setDateFilter("");
+              setSearchInput("");
+            }}
+            className="rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+          >
+            Clear
+          </button>
+        )}
+      </div>
 
       <div className="mb-4 flex gap-2">
         {FILTER_OPTIONS.map((option) => (

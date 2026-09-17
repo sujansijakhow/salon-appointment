@@ -1,11 +1,17 @@
 import axiosInstance from "./axiosInstance";
 import type { Appointment, AppointmentInput, AppointmentStatus } from "../types";
 
+export interface AppointmentFilters {
+  status?: AppointmentStatus;
+  date?: string;
+  search?: string;
+}
+
 export const getAppointments = async (
-  status?: AppointmentStatus
+  filters: AppointmentFilters = {}
 ): Promise<Appointment[]> => {
   const response = await axiosInstance.get<Appointment[]>("/appointments", {
-    params: status ? { status } : undefined,
+    params: filters,
   });
   return response.data;
 };
