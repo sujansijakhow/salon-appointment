@@ -69,7 +69,7 @@ Both servers need to be running at the same time.
 ## Key Decisions
 
 - Prices use Decimal (not float) to avoid rounding errors with money.
-- Double-booking is blocked at the database level, not just in the form — so it can't be bypassed even by accident.
+- Double-booking is blocked at the database level, not just in the form so it can't be bypassed even by accident.
 - Cancelled appointments free up their time slot so it can be booked again.
 - Deleting a service that already has appointments is blocked, to avoid losing appointment history.
 - Status updates use a separate, focused endpoint so other appointment details can't be changed accidentally.
