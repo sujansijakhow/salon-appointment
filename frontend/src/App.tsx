@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
-
 import ServicesPage from "./pages/ServicePage";
 import AppointmentsPage from "./pages/AppointmentPage";
 
