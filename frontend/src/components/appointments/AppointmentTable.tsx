@@ -102,7 +102,7 @@ const AppointmentTable = ({
                   <button
                     onClick={() => onDelete(appointment.id)}
                     disabled={deletingId === appointment.id}
-                    className="text-gray-500 hover:text-red-600 disabled:opacity-50"
+                    className="text-gray-500 hover:text-red-600 disabled:opacity-50 cursor-pointer"
                     aria-label={`Delete appointment for ${appointment.customer_name}`}
                   >
                     <Trash2 size={16} />
