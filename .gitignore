@@ -1,6 +1,12 @@
-venv/,
-__pycache__/, 
-*.sqlite3, 
-node_modules/, 
-dist/, 
+venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+node_modules/
+dist/
 .env
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.vscode/
