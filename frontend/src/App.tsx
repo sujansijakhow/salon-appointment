@@ -5,7 +5,7 @@ import AppointmentsPage from "./pages/AppointmentPage";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `px-3 py-2 text-sm font-medium rounded-md ${
-    isActive ? "bg-indigo-600 text-white" : "text-gray-700 hover:bg-gray-100"
+    isActive ? "bg-teal-600 text-white" : "text-gray-700 hover:bg-gray-100"
   }`;
 
 function App() {

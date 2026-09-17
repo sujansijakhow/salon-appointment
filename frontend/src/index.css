@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@layer components {
+	.form-input {
+		@apply w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500;
+	}
+
+	.primary-button {
+		@apply rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50;
+	}
+
+	.secondary-button {
+		@apply rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50;
+	}
+
+	.filter-button {
+		@apply shrink-0 rounded-md px-3 py-1 text-sm font-medium;
+	}
+}

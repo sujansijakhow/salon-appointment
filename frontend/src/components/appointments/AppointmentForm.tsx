@@ -14,9 +14,6 @@ interface AppointmentFormProps {
   submitError?: string;
 }
 
-const inputClass =
-  "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
-
 const AppointmentForm = ({
   services,
   onSubmit,
@@ -48,7 +45,7 @@ const AppointmentForm = ({
         <input
           id="customer_name"
           type="text"
-          className={inputClass}
+          className="form-input"
           {...register("customer_name")}
         />
         {errors.customer_name && (
@@ -65,7 +62,7 @@ const AppointmentForm = ({
         <input
           id="customer_phone"
           type="tel"
-          className={inputClass}
+          className="form-input"
           {...register("customer_phone")}
         />
         {errors.customer_phone && (
@@ -79,11 +76,11 @@ const AppointmentForm = ({
         <label htmlFor="service" className="mb-1 block text-sm font-medium text-gray-700">
           Service
         </label>
-        <select id="service" className={inputClass} {...register("service")}>
+        <select id="service" className="form-input" {...register("service")}>
           <option value="">Select a service</option>
           {services.map((service) => (
             <option key={service.id} value={service.id}>
-              {service.name} — NPR {service.price} ({service.duration} min)
+              {service.name} - NPR {service.price} ({service.duration} min)
             </option>
           ))}
         </select>
@@ -99,7 +96,7 @@ const AppointmentForm = ({
           <label htmlFor="date" className="mb-1 block text-sm font-medium text-gray-700">
             Date
           </label>
-          <input id="date" type="date" className={inputClass} {...register("date")} />
+          <input id="date" type="date" className="form-input" {...register("date")} />
           {errors.date && (
             <p role="alert" className="mt-1 text-sm text-red-600">
               {errors.date.message}
@@ -111,7 +108,7 @@ const AppointmentForm = ({
           <label htmlFor="time" className="mb-1 block text-sm font-medium text-gray-700">
             Time
           </label>
-          <input id="time" type="time" className={inputClass} {...register("time")} />
+          <input id="time" type="time" className="form-input" {...register("time")} />
           {errors.time && (
             <p role="alert" className="mt-1 text-sm text-red-600">
               {errors.time.message}
@@ -124,7 +121,7 @@ const AppointmentForm = ({
         <label htmlFor="notes" className="mb-1 block text-sm font-medium text-gray-700">
           Notes <span className="font-normal text-gray-400">(optional)</span>
         </label>
-        <textarea id="notes" rows={3} className={inputClass} {...register("notes")} />
+        <textarea id="notes" rows={3} className="form-input" {...register("notes")} />
       </div>
 
       {submitError && (
@@ -137,7 +134,7 @@ const AppointmentForm = ({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="primary-button"
         >
           {isSubmitting ? "Booking..." : "Book Appointment"}
         </button>
@@ -145,7 +142,7 @@ const AppointmentForm = ({
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          className="secondary-button"
         >
           Cancel
         </button>

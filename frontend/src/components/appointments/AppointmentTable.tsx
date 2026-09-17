@@ -88,7 +88,7 @@ const AppointmentTable = ({
                       onChange={(e) =>
                         onStatusChange(appointment.id, e.target.value as AppointmentStatus)
                       }
-                      className="rounded-md border border-gray-300 px-2 py-1 text-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:opacity-50"
+                      className="rounded-md border border-gray-300 px-2 py-1 text-xs focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 disabled:opacity-50"
                     >
                       {options.map((status) => (
                         <option key={status} value={status}>

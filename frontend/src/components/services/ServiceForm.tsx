@@ -12,9 +12,6 @@ interface ServiceFormProps {
   submitError?: string;
 }
 
-const inputClass =
-  "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
-
 const ServiceForm = ({
   initialValues,
   onSubmit,
@@ -56,7 +53,7 @@ const ServiceForm = ({
         <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
           Service name
         </label>
-        <input id="name" type="text" className={inputClass} {...register("name")} />
+        <input id="name" type="text" className="form-input" {...register("name")} />
         {errors.name && (
           <p role="alert" className="mt-1 text-sm text-red-600">
             {errors.name.message}
@@ -72,7 +69,7 @@ const ServiceForm = ({
           id="price"
           type="number"
           step="0.01"
-          className={inputClass}
+          className="form-input"
           {...register("price")}
         />
         {errors.price && (
@@ -86,7 +83,7 @@ const ServiceForm = ({
         <label htmlFor="duration" className="mb-1 block text-sm font-medium text-gray-700">
           Duration (minutes)
         </label>
-        <input id="duration" type="number" className={inputClass} {...register("duration")} />
+        <input id="duration" type="number" className="form-input" {...register("duration")} />
         {errors.duration && (
           <p role="alert" className="mt-1 text-sm text-red-600">
             {errors.duration.message}
@@ -104,7 +101,7 @@ const ServiceForm = ({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="primary-button"
         >
           {isSubmitting ? "Saving..." : initialValues ? "Update" : "Add Service"}
         </button>
@@ -112,7 +109,7 @@ const ServiceForm = ({
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          className="secondary-button"
         >
           Cancel
         </button>

@@ -132,7 +132,7 @@ const AppointmentsPage = () => {
         <button
           onClick={openForm}
           disabled={servicesLoading}
-          className="flex items-center justify-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="primary-button flex items-center justify-center gap-1 cursor-pointer"
         >
           <Plus size={16} />
           Book Appointment
@@ -164,13 +164,13 @@ const AppointmentsPage = () => {
           placeholder="Search by name or phone"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-auto"
+          className="form-input sm:w-auto"
         />
         <input
           type="date"
           value={dateFilter}
           onChange={(e) => setDateFilter(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-auto"
+          className="form-input sm:w-auto"
         />
         {(dateFilter || searchInput) && (
           <button
@@ -190,9 +190,9 @@ const AppointmentsPage = () => {
           <button
             key={option.value}
             onClick={() => setStatusFilter(option.value)}
-            className={`shrink-0 rounded-md px-3 py-1 text-sm font-medium ${
+            className={`filter-button ${
               statusFilter === option.value
-                ? "bg-indigo-600 text-white"
+                ? "bg-teal-600 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >

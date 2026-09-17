@@ -94,7 +94,7 @@ const ServicesPage = () => {
         <h1 className="text-2xl font-semibold text-gray-900">Services</h1>
         <button
           onClick={openCreateForm}
-          className="flex items-center justify-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 cursor-pointer"
+          className="primary-button flex items-center justify-center gap-1 cursor-pointer"
         >
           <Plus size={16} />
           Add Service

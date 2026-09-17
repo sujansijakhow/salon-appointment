@@ -51,7 +51,7 @@ const ServiceTable = ({
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => onEdit(service)}
-                    className="text-gray-500 hover:text-indigo-600 cursor-pointer"
+                    className="text-gray-500 hover:text-teal-600 cursor-pointer"
                     aria-label={`Edit ${service.name}`}
                   >
                     <Pencil size={16} />
