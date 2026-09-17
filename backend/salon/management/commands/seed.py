@@ -24,9 +24,9 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING("Cleared existing services and appointments."))
 
         services_data = [
-            {"name": "Haircut", "price": 500, "duration": 30},
-            {"name": "Hair Coloring", "price": 2500, "duration": 120},
-            {"name": "Facial", "price": 1500, "duration": 60},
+            {"name": "Hair Trimming", "price": 800, "duration": 30},
+            {"name": "Hair Coloring", "price": 2000, "duration": 120},
+            {"name": "Makeup", "price": 4500, "duration": 60},
         ]
 
         services = {}
@@ -42,25 +42,25 @@ class Command(BaseCommand):
         today = date.today()
         appointments_data = [
             {
-                "customer_name": "Ram Sharma",
-                "customer_phone": "9800000001",
-                "service": services["Haircut"],
+                "customer_name": "Sujan Sijakhow",
+                "customer_phone": "9804000001",
+                "service": services["Hair Trimming"],
                 "date": today + timedelta(days=1),
                 "time": time(10, 0),
                 "status": Appointment.Status.PENDING,
                 "notes": "",
             },
             {
-                "customer_name": "Sita Thapa",
+                "customer_name": "Rameshwor Yadav",
                 "customer_phone": "9800000002",
-                "service": services["Facial"],
+                "service": services["Makeup"],
                 "date": today + timedelta(days=1),
                 "time": time(11, 0),
                 "status": Appointment.Status.CONFIRMED,
                 "notes": "Prefers organic products",
             },
             {
-                "customer_name": "Gita Rai",
+                "customer_name": "Gita Halwai",
                 "customer_phone": "9800000003",
                 "service": services["Hair Coloring"],
                 "date": today + timedelta(days=2),
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             {
                 "customer_name": "Hari Bahadur",
                 "customer_phone": "9800000004",
-                "service": services["Haircut"],
+                "service": services["Hair Trimming"],
                 "date": today - timedelta(days=1),
                 "time": time(9, 0),
                 "status": Appointment.Status.CANCELLED,
